@@ -1,0 +1,25 @@
+{
+  "name": "",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:wunderlink/base-module.git"
+  },
+  "directories": {
+    "example": "example",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node test/index.js",
+    "example": "node example/index.js",
+  },  
+  "keywords": [
+  ],  
+  "author": "Tyler Bushnell <wunderlinks@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "tape": "^4.0.0"
+  }
+}
