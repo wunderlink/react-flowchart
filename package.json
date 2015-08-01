@@ -1,11 +1,18 @@
 {
-  "name": "",
+  "name": "React-Flowchart",
   "version": "0.0.0",
-  "description": "",
+  "description": "An interactive flowchart using React",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:wunderlink/base-module.git"
+    "url": "git@github.com:wunderlink/react-flowchart.git"
+  },
+  "browserify": {
+    "transform": [
+      "reactify",
+      "envify",
+      "cssify"
+    ]
   },
   "directories": {
     "example": "example",
@@ -13,13 +20,21 @@
   },
   "scripts": {
     "test": "node test/index.js",
-    "example": "node example/index.js",
-  },  
-  "keywords": [
-  ],  
+    "example": "beefy example/index.jsx"
+  },
+  "keywords": [],
   "author": "Tyler Bushnell <wunderlinks@gmail.com>",
   "license": "MIT",
+  "dependencies": {
+    "cssify": "^0.6.0",
+    "envify": "^3.2.0",
+    "react": "^0.12.2",
+    "reactify": "^1.0.0"
+  },
   "devDependencies": {
-    "tape": "^4.0.0"
+    "beefy": "^2.1.5",
+    "browserify": "^11.0.1",
+    "tape": "^4.0.0",
+    "watchify": "^3.3.1"
   }
 }
