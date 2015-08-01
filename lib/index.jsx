@@ -1,9 +1,20 @@
 
 
+var uuid = require('node-uuid');
+var dnd = require('react-dnd');
+var HTML5Backend = require('react-dnd/modules/backends/HTML5');
 var React = require('react')
 var PureRenderMixin = require('react/addons').addons.PureRenderMixin;
 
-var Container = module.exports = React.createClass({
+var Node = require('./Node.jsx')
+
+var ItemTypes = {
+  branchOut: 'branchOut',
+  nodeIn: 'nodeIn'
+}
+
+
+var Container = React.createClass({
 
   propTypes: {
     nodes: React.PropTypes.object
@@ -50,137 +61,6 @@ var Container = module.exports = React.createClass({
 
 })
 
-var Node = React.createClass({
 
-  propTypes: {},
-
-  componentWillMount : function() {},
-  componentWillReceiveProps: function() {},
-  componentWillUnmount : function() {}, 
-
-  _getNodeValue : function(key) {
-    var defaults = {
-      maxBranches: 2
-    }
-
-    if (this.props.node[key]) {
-      return this.props.node[key]
-    } else if (defaults[key]) {
-      return defaults[key]
-    } else {
-      return false
-    }
-  },
-
-  _addNewBranch : function() {
-    var node = this.props.node
-    if (!node.branches) {
-      node.branches = []
-    }
-    node.branches.push({name:'new branch'})
-    this.props._updateNode(node, this.props.nodeIndex)
-    this.update = true
-  },
-
-  render : function() {
-    this.update = false
-    var branchComps = []
-    var branches = []
-    if (this.props.node.branches) {
-      branches = this.props.node.branches
-    }
-    for (var i=0; i<branches.length; i++) {
-      if (i >= this._getNodeValue('maxBranches')) {
-        break
-      }
-      var branch = this.props.node.branches[i]
-      branchComps.push(<Branch 
-                      branch={branch} 
-                      index={i} 
-                      BranchContents={this.props.BranchContents}
-                      _addNewBranch={this._addNewBranch}
-                      key={"b"+i} />)
-    }
-    var contents = []
-    if (this.props.NodeContents) {
-      contents.push(<this.props.NodeContents node={this.props.node} />)
-    }
-
-    if (branches.length < this._getNodeValue('maxBranches')) {
-      branchComps.push(<Branch
-                       addNew={true}
-                       index={i}
-                       _addNewBranch={this._addNewBranch}
-                       key={"b"+i} />)
-    }
-
-    var containerStyle = {
-      border: '1px solid #000',
-      width: '200px'
-    }
-    var contentStyle = {
-      padding: '10px',
-      width: '100px'
-    }
-    var branchesStyle = {
-      padding: '4px',
-      width: '30px'
-    }
-    var html =
-      <div style={containerStyle}>
-        <div style={contentStyle}>
-          <h4>{this.props.node.name}</h4>
-          <div>
-          {contents}
-          </div>
-        </div>
-        <div style={branchesStyle}>
-        {branchComps}
-        </div>
-      </div>
-    return html
-  }
-
-})
-
-var Branch = React.createClass({
-
-  propTypes: {},
-  mixins: [PureRenderMixin],
-
-  componentWillMount : function() {},
-  componentWillReceiveProps: function() {},
-  componentWillUnmount : function() {},
-
-  _addNewBranch : function() {
-    this.props._addNewBranch()
-  },
-
-  render : function() {
-    var contents = []
-    if (this.props.addNew) {
-      contents.push(<div onClick={this._addNewBranch}>+</div>)
-    } else {
-      if (this.props.BranchContents) {
-        contents.push(
-          <div>
-            <this.props.BranchContents branch={this.props.branch} />
-            <div>o</div>
-          </div>)
-      }
-    }
-
-    var style = {
-      border: '1px solid #F00'
-    }
-    var html =
-      <div style={style}>
-        <div>
-        {contents}
-        </div>
-      </div>
-    return html
-  }
-
-})
+module.exports = dnd.DragDropContext(HTML5Backend)(Container);
 

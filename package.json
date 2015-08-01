@@ -28,7 +28,9 @@
   "dependencies": {
     "cssify": "^0.6.0",
     "envify": "^3.2.0",
-    "react": "^0.12.2",
+    "node-uuid": "^1.4.3",
+    "react": "^0.13.0",
+    "react-dnd": "^1.1.4",
     "reactify": "^1.0.0"
   },
   "devDependencies": {
