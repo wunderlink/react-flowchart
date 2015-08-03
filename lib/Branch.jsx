@@ -6,19 +6,6 @@ var React = require('react')
 var ItemTypes = require('./constants.json').ItemTypes
 
 
-var branchSource = {
-  beginDrag: function (props) {
-    return {branchId:props.branchId};
-  }
-}
-
-function collect(connect, monitor) {
-  return {
-    connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging()
-  }
-}
-
   
 var Branch = module.exports = React.createClass({
 
@@ -41,7 +28,7 @@ var Branch = module.exports = React.createClass({
         contents.push(
           <div>
             <this.props.BranchContents branch={this.props.branch} />
-            <BranchHandle />
+            <BranchHandle branch={this.props.branch} _updateBranch={this.props._updateBranch} />
           </div>)
       }
     }
@@ -59,6 +46,21 @@ var Branch = module.exports = React.createClass({
   }
 
 })
+
+
+var branchSource = {
+  beginDrag: function (props) {
+	console.log("BPROPS", props)
+    return {branch:props.branch, _updateBranch:props._updateBranch}
+  }
+}
+
+function collect(connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  }
+}
 
 
 var BranchOut = React.createClass({

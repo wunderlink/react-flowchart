@@ -39,6 +39,25 @@ var Container = React.createClass({
     this.setState({nodes:nodes})
   },
 
+  _updateBranch : function (newBranch) {
+    var nodes = this.state.nodes
+    console.log("BRNACH", newBranch)
+    toplevel:
+    for (var index in nodes) {
+      for (var ind in nodes[index].branches) {
+        if (nodes[index].branches[ind].branchId === newBranch.branchId) {
+          var branch = nodes[index].branches[ind]
+          break toplevel
+        }
+      }
+    }
+    console.log("Broke")
+    for (var key in newBranch) {
+      branch[key] = newBranch[key]
+    }
+    this.setState({nodes:nodes})
+  },
+
   render : function() {
     var nodes = []
     for (var index in this.state.nodes) {
@@ -48,6 +67,7 @@ var Container = React.createClass({
                   BranchContents={this.props.BranchContents}
                   NodeContents={this.props.NodeContents}
                   _updateNode={this._updateNode}
+                  _updateBranch={this._updateBranch}
                   key={"n"+index} />)
       console.log('n'+index)
     }

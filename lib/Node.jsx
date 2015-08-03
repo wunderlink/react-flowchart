@@ -7,13 +7,6 @@ var Branch = require('./Branch.jsx')
 var ItemTypes = require('./constants.json').ItemTypes
 
 
-var nodeInTarget = {
-  drop: function (props, monitor) {
-    moveKnight(props.x, props.y);
-  }
-};
-  
-
 
 var Node = module.exports = React.createClass({
 
@@ -64,6 +57,7 @@ var Node = module.exports = React.createClass({
                       index={i} 
                       BranchContents={this.props.BranchContents}
                       _addNewBranch={this._addNewBranch}
+                      _updateBranch={this.props._updateBranch}
                       key={"b"+i} />) 
     }   
     var contents = []
@@ -93,6 +87,9 @@ var Node = module.exports = React.createClass({
     }   
     var html =
       <div style={containerStyle}>
+        <div>
+          <NodeTarget node={this.props.node} nodeIndex={this.props.nodeIndex} />
+        </div>
         <div style={contentStyle}>
           <h4>{this.props.node.name}</h4>
           <div>
@@ -108,3 +105,56 @@ var Node = module.exports = React.createClass({
 
 })
 
+
+var nodeInTarget = {
+  drop: function (props, monitor) {
+    var item = monitor.getItem()
+    console.log("ITEM", item)
+    console.log("props", props)
+    var branch = {
+      branchId:item.branch.branchId,
+      nodeId:props.node.nodeId
+    }
+    item._updateBranch(branch)
+  }
+};
+  
+function collect(connect, monitor) {
+  return {
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver()
+  };
+}
+
+
+var NodeIn = React.createClass({
+
+  propTypes: {
+    connectDragSource: React.PropTypes.func.isRequired,
+    isDragging: React.PropTypes.bool.isRequired
+  },  
+
+  render: function () {
+    var connectDropTarget = this.props.connectDropTarget;
+    var isOver = this.props.isOver;
+
+    return connectDropTarget(
+      <div style={{width:'30px',height:'30px', border:'1px solid #00FF00'}}>
+        {isOver &&
+          <div style={{
+            position: 'relative',
+            top: 0,
+            left: 0,
+            height: '100%',
+            width: '100%',
+            zIndex: 1,
+            opacity: 0.5,
+            backgroundColor: 'yellow'
+          }} />
+        }
+      </div>
+    );
+  }
+})
+
+var NodeTarget = dnd.DropTarget(ItemTypes.branchOut, nodeInTarget, collect)(NodeIn);

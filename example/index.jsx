@@ -8,9 +8,9 @@ var data = [
     name: 'Node 1',
     maxBranches: 10,
     branches: [
-      {nodeId:"node2"},
-      {nodeId:"node3"},
-      {nodeId:"node4"}
+      {branchId:'branch1', nodeId:"node2"},
+      {branchId:'branch2', nodeId:"node2"},
+      {branchId:'branch3', nodeId:"node2"}
     ]
   },
   {
@@ -18,7 +18,7 @@ var data = [
     name: 'Node 2'
   },
   {
-    nodeId: 'node2',
+    nodeId: 'node3',
     name: 'Node 3'
   }
 ]
