@@ -31,7 +31,10 @@ var Branch = module.exports = React.createClass({
         contents.push(
           <div>
             <this.props.BranchContents branch={this.props.branch} />
+        <div className="branchOrigin">
+          o
             {this.props.BranchHandle}
+        </div>
           </div>)
       }
     }

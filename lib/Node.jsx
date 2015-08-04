@@ -109,7 +109,6 @@ var Node = React.createClass({
     }
     var branchesStyle = {
       padding: '4px',
-      width: '30px'
     }
     var connectDragSource = this.props.connectDragSource;
     var isDragging = this.props.isDragging;

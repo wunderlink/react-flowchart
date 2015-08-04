@@ -51,7 +51,7 @@ var Container = React.createClass({
         var node = this.state.nodes[index]
         for (var bindex in node.branches) {
           var branchId = node.branches[bindex].branchId
-          var start = thisEl.querySelector('#branch-'+branchId)
+          var start = thisEl.querySelector('#branch-'+branchId+' .branchOrigin')
           var finish = thisEl.querySelector('#handle-'+branchId)
           var scoords = start.getBoundingClientRect()
           var fcoords = finish.getBoundingClientRect()
