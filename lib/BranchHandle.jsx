@@ -37,7 +37,7 @@ var BranchOut = React.createClass({
         fontWeight: 'bold',
         cursor: 'move'
       }}> 
-        ♘   
+        ▶
       </div>
     );  
   }
