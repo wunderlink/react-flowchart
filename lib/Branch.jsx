@@ -13,17 +13,8 @@ var Branch = module.exports = React.createClass({
       
   componentWillMount : function() {},
   componentWillUnmount : function() {},
-
-  componentWillReceiveProps: function() {
-    if (this.props._drawConnection) {
-      this.props._drawConnection(this.props.branch.branchId)
-    }
-  },
-
-  componentDidMount : function() {
-    var thisNode = React.findDOMNode(this)
-//    this.props._drawConnection(this.branch, thisNode)
-  },
+  componentWillReceiveProps: function() {},
+  componentDidMount : function() {},
       
   _addNewBranch : function() {
     this.props._addNewBranch()
@@ -36,7 +27,7 @@ var Branch = module.exports = React.createClass({
       contents.push(<div onClick={this._addNewBranch}>+</div>)
     } else {
       if (this.props.BranchContents) {
-        branchId = this.props.branch.branchId
+        branchId = 'branch-'+this.props.branch.branchId
         contents.push(
           <div>
             <this.props.BranchContents branch={this.props.branch} />

@@ -60,7 +60,6 @@ var Node = React.createClass({
           Handle.push(<BranchHandle 
                           branch={branches[i]} 
                           _updateBranch={this.props._updateBranch} 
-                          _drawConnection={this.props._drawConnection} 
                           key={'handle_'+branches[i].branchId} />)
         }
       }
@@ -72,7 +71,6 @@ var Node = React.createClass({
                       BranchHandle={Handle}
                       _addNewBranch={this._addNewBranch}
                       _updateBranch={this.props._updateBranch}
-                      _drawConnection={this.props._drawConnection}
                       key={branch.branchId} />) 
     }   
     var contents = []
@@ -94,7 +92,6 @@ var Node = React.createClass({
         branchesIn.push(<BranchHandle 
                             branch={this.props.branchesIn[index]} 
                             _updateBranch={this.props._updateBranch} 
-                            _drawConnection={this.props._drawConnection} 
                             key={'handle_'+this.props.branchesIn[index].branchId} />)
       }
     }

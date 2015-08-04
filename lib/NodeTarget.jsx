@@ -14,7 +14,6 @@ var nodeInTarget = {
       nodeId:props.node.nodeId
     }
     item._updateBranch(branch)
-    item._drawConnection(branch.branchId)
   }
 };
 

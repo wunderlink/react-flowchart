@@ -34,6 +34,36 @@ var Container = React.createClass({
     context.clearRect(0, 0, canvas.width, canvas.height);
   },
 
+  componentDidUpdate : function() {
+    this._drawConnections()
+  },
+
+  componentDidMount : function() {
+    this._drawConnections()
+  },
+
+  _drawConnections : function () {
+    var canvas = this.refs.containerCanvas.getDOMNode()
+    var context = canvas.getContext('2d');
+    var thisEl = React.findDOMNode(this)
+    if (thisEl) {
+      for (var index in this.state.nodes) {
+        var node = this.state.nodes[index]
+        for (var bindex in node.branches) {
+          var branchId = node.branches[bindex].branchId
+          var start = thisEl.querySelector('#branch-'+branchId)
+          var finish = thisEl.querySelector('#handle-'+branchId)
+          var scoords = start.getBoundingClientRect()
+          var fcoords = finish.getBoundingClientRect()
+
+          context.beginPath();
+          context.moveTo(scoords.left, scoords.top);
+          context.lineTo(fcoords.left, fcoords.top);
+          context.stroke();
+        }
+      }
+    }
+  },
 
   _updateNode : function (node) {
     var nodes = this.state.nodes
@@ -107,21 +137,6 @@ var Container = React.createClass({
     return branchHandles
   },
 
-  _drawConnection : function (branchId) {
-      var canvas = this.refs.containerCanvas.getDOMNode()
-      var context = canvas.getContext('2d');
-      var thisEl = React.findDOMNode(this)
-      var start = thisEl.querySelector('#'+branchId)
-      var finish = thisEl.querySelector('#hand'+branchId)
-      var scoords = start.getBoundingClientRect()
-      var fcoords = finish.getBoundingClientRect()
-
-      context.beginPath();
-      context.moveTo(scoords.left, scoords.top);
-      context.lineTo(fcoords.left, fcoords.top);
-      context.stroke();
-  },
-
   render : function() {
     var nodes = []
     var nodeIn = this._collectNodeIn()
@@ -143,7 +158,6 @@ var Container = React.createClass({
                   NodeContents={this.props.NodeContents}
                   _updateNode={this._updateNode}
                   _updateBranch={this._updateBranch}
-                  _drawConnection={this._drawConnection}
                   x={x}
                   y={y}
                   key={"n"+index} />)
