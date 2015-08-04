@@ -9,13 +9,12 @@ var ItemTypes = require('./constants.json').ItemTypes
 var nodeInTarget = {
   drop: function (props, monitor) {
     var item = monitor.getItem()
-    console.log("ITEM", item)
-    console.log("props", props)
     var branch = {
       branchId:item.branch.branchId,
       nodeId:props.node.nodeId
     }
     item._updateBranch(branch)
+    item._drawConnection(branch.branchId)
   }
 };
 

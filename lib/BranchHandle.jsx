@@ -7,7 +7,7 @@ var ItemTypes = require('./constants.json').ItemTypes
 var branchSource = { 
   beginDrag: function (props) {
   console.log("BPROPS", props)
-    return {branch:props.branch, _updateBranch:props._updateBranch}
+    return {branch:props.branch, _updateBranch:props._updateBranch, _drawConnection:props._drawConnection}
   }
 }
 
@@ -31,7 +31,7 @@ var BranchOut = React.createClass({
     var isDragging = this.props.isDragging;
 
     return connectDragSource(
-      <div style={{
+      <div id={'hand'+this.props.branch.branchId} style={{
         opacity: isDragging ? 0.5 : 1,
         fontSize: 25, 
         fontWeight: 'bold',

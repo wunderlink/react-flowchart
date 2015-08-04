@@ -28,12 +28,21 @@ var Container = React.createClass({
     this.setState({nodes:nextProps.nodes})
   },
 
-  componentWillUnmount : function() {},
+  componentWillUpdate : function() {
+    var canvas = this.refs.containerCanvas.getDOMNode()
+    var context = canvas.getContext('2d');
+    context.clearRect(0, 0, canvas.width, canvas.height);
+  },
 
-  _updateNode : function (newNode, index) {
+
+  _updateNode : function (node) {
     var nodes = this.state.nodes
-    var currentNode = nodes[index]
-    currentNode = newNode
+    for (var index in nodes) {
+      if (nodes[index].nodeId === node.nodeId) {
+        var currentNode = nodes[index]
+        currentNode = node
+      }
+    }
     this.setState({nodes:nodes})
   },
 
@@ -98,6 +107,21 @@ var Container = React.createClass({
     return branchHandles
   },
 
+  _drawConnection : function (branchId) {
+      var canvas = this.refs.containerCanvas.getDOMNode()
+      var context = canvas.getContext('2d');
+      var thisEl = React.findDOMNode(this)
+      var start = thisEl.querySelector('#'+branchId)
+      var finish = thisEl.querySelector('#hand'+branchId)
+      var scoords = start.getBoundingClientRect()
+      var fcoords = finish.getBoundingClientRect()
+
+      context.beginPath();
+      context.moveTo(scoords.left, scoords.top);
+      context.lineTo(fcoords.left, fcoords.top);
+      context.stroke();
+  },
+
   render : function() {
     var nodes = []
     var nodeIn = this._collectNodeIn()
@@ -119,6 +143,7 @@ var Container = React.createClass({
                   NodeContents={this.props.NodeContents}
                   _updateNode={this._updateNode}
                   _updateBranch={this._updateBranch}
+                  _drawConnection={this._drawConnection}
                   x={x}
                   y={y}
                   key={"n"+index} />)
@@ -141,7 +166,7 @@ var Container = React.createClass({
       {nodes}
         {isOver &&
           <div style={{
-            position: 'relative',
+            position: 'absolute',
             top: 0,
             left: 0,
             height: '100%',
@@ -151,6 +176,8 @@ var Container = React.createClass({
             backgroundColor: 'yellow'
           }} />
         }   
+
+      <canvas ref="containerCanvas" width={this.props.width} height={this.props.height}></canvas>
       </div>
     )
     return html
