@@ -2,6 +2,8 @@
 {
 	ItemTypes: {
 		branchOut: 'branchOut',
-		nodeIn: 'nodeIn'
+		nodeIn: 'nodeIn',
+		nodeContainer: 'nodeContainer',
+		parentContainer: 'parentContainer'
 	}
 }

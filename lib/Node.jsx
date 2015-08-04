@@ -4,11 +4,13 @@ var dnd = require('react-dnd');
 var React = require('react')
 
 var Branch = require('./Branch.jsx')
+var BranchHandle = require('./BranchHandle.jsx')
+var NodeTarget = require('./NodeTarget.jsx')
 var ItemTypes = require('./constants.json').ItemTypes
 
 
 
-var Node = module.exports = React.createClass({
+var Node = React.createClass({
 
   propTypes: {}, 
 
@@ -47,18 +49,29 @@ var Node = module.exports = React.createClass({
     if (this.props.node.branches) {
       branches = this.props.node.branches
     }   
+
     for (var i=0; i<branches.length; i++) {
       if (i >= this._getNodeValue('maxBranches')) {
         break
-      }   
+      }
+      var Handle = []
+      for (var index in this.props.branchHandles) {
+        if (this.props.branchHandles[index].branchId === branches[i].branchId) {
+          Handle.push(<BranchHandle 
+                          branch={branches[i]} 
+                          _updateBranch={this.props._updateBranch} 
+                          key={'handle_'+branches[i].branchId} />)
+        }
+      }
       var branch = this.props.node.branches[i]
       branchComps.push(<Branch 
                       branch={branch} 
                       index={i} 
                       BranchContents={this.props.BranchContents}
+                      BranchHandle={Handle}
                       _addNewBranch={this._addNewBranch}
                       _updateBranch={this.props._updateBranch}
-                      key={"b"+i} />) 
+                      key={branch.branchId} />) 
     }   
     var contents = []
     if (this.props.NodeContents) {
@@ -73,22 +86,39 @@ var Node = module.exports = React.createClass({
                        key={"b"+i} />) 
     }   
 
-    var containerStyle = { 
+    var branchesIn = []
+    if (this.props.branchesIn) {
+      for (var index in this.props.branchesIn) {
+        branchesIn.push(<BranchHandle 
+                            branch={this.props.branchesIn[index]} 
+                            _updateBranch={this.props._updateBranch} 
+                            key={'handle_'+this.props.branchesIn[index].branchId} />)
+      }
+    }
+
+    var containerStyle = {
       border: '1px solid #000',
-      width: '200px'
-    }   
-    var contentStyle = { 
+      width: '200px',
+      position: 'absolute',
+      top: this.props.y,
+      left: this.props.x
+    }
+    var contentStyle = {
       padding: '10px',
       width: '100px'
-    }   
-    var branchesStyle = { 
+    }
+    var branchesStyle = {
       padding: '4px',
       width: '30px'
-    }   
+    }
+    var connectDragSource = this.props.connectDragSource;
+    var isDragging = this.props.isDragging;
+
     var html =
+    connectDragSource(
       <div style={containerStyle}>
         <div>
-          <NodeTarget node={this.props.node} nodeIndex={this.props.nodeIndex} />
+          <NodeTarget node={this.props.node} nodeIndex={this.props.nodeIndex} branchesIn={branchesIn} />
         </div>
         <div style={contentStyle}>
           <h4>{this.props.node.name}</h4>
@@ -100,61 +130,26 @@ var Node = module.exports = React.createClass({
         {branchComps}
         </div>
       </div>
+    )
     return html
   }
 
 })
 
-
-var nodeInTarget = {
-  drop: function (props, monitor) {
-    var item = monitor.getItem()
-    console.log("ITEM", item)
-    console.log("props", props)
-    var branch = {
-      branchId:item.branch.branchId,
-      nodeId:props.node.nodeId
-    }
-    item._updateBranch(branch)
+var nodeSource = { 
+  beginDrag: function (props) {
+    return {node:props.node, _updateNode:props._updateNode}
   }
-};
-  
+}
+
 function collect(connect, monitor) {
   return {
-    connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver()
-  };
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  }
 }
 
 
-var NodeIn = React.createClass({
+var NodeContainer = module.exports = dnd.DragSource(ItemTypes.nodeContainer, nodeSource, collect)(Node);
 
-  propTypes: {
-    connectDragSource: React.PropTypes.func.isRequired,
-    isDragging: React.PropTypes.bool.isRequired
-  },  
 
-  render: function () {
-    var connectDropTarget = this.props.connectDropTarget;
-    var isOver = this.props.isOver;
-
-    return connectDropTarget(
-      <div style={{width:'30px',height:'30px', border:'1px solid #00FF00'}}>
-        {isOver &&
-          <div style={{
-            position: 'relative',
-            top: 0,
-            left: 0,
-            height: '100%',
-            width: '100%',
-            zIndex: 1,
-            opacity: 0.5,
-            backgroundColor: 'yellow'
-          }} />
-        }
-      </div>
-    );
-  }
-})
-
-var NodeTarget = dnd.DropTarget(ItemTypes.branchOut, nodeInTarget, collect)(NodeIn);
