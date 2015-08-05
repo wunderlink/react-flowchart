@@ -1,18 +1,4 @@
-# Write things #
+# React-Flowchart #
 
-Like this.
+This package is still under development.
 
-List
-* asdf
-* asdf
-* asdf
-
-```json
-{
-	"something":"else"
-}
-```
-
-```js
-console.log("hello world")
-```
