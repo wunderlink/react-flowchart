@@ -6,7 +6,7 @@ var HTML5Backend = require('react-dnd/modules/backends/HTML5');
 var React = require('react')
 var PureRenderMixin = require('react/addons').addons.PureRenderMixin;
 
-var Node = require('./Node.jsx')
+var Node = require('./node.jsx')
 
 var ItemTypes = require('./constants.json').ItemTypes
 
@@ -51,8 +51,8 @@ var Container = React.createClass({
         var node = this.state.nodes[index]
         for (var bindex in node.branches) {
           var branchId = node.branches[bindex].branchId
-          var start = thisEl.querySelector('#branch-'+branchId+' .branchOrigin')
-          var finish = thisEl.querySelector('#handle-'+branchId)
+          var start = thisEl.querySelector('#handle-'+branchId)
+          var finish = thisEl.querySelector('#end-'+branchId)
           var scoords = start.getBoundingClientRect()
           var fcoords = finish.getBoundingClientRect()
 

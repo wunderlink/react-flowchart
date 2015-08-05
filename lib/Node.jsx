@@ -3,9 +3,9 @@ var uuid = require('node-uuid');
 var dnd = require('react-dnd');
 var React = require('react')
 
-var Branch = require('./Branch.jsx')
-var BranchHandle = require('./BranchHandle.jsx')
-var NodeTarget = require('./NodeTarget.jsx')
+var Branch = require('./branch.jsx')
+var BranchHandle = require('./branch-handle.jsx')
+var NodeTarget = require('./node-target.jsx')
 var ItemTypes = require('./constants.json').ItemTypes
 
 
@@ -55,14 +55,14 @@ var Node = React.createClass({
         break
       }
       var Handle = []
-      for (var index in this.props.branchHandles) {
-        if (this.props.branchHandles[index].branchId === branches[i].branchId) {
+//      for (var index in this.props.branchHandles) {
+//        if (this.props.branchHandles[index].branchId === branches[i].branchId) {
           Handle.push(<BranchHandle 
                           branch={branches[i]} 
                           _updateBranch={this.props._updateBranch} 
                           key={'handle_'+branches[i].branchId} />)
-        }
-      }
+//        }
+//      }
       var branch = this.props.node.branches[i]
       branchComps.push(<Branch 
                       branch={branch} 
@@ -89,10 +89,13 @@ var Node = React.createClass({
     var branchesIn = []
     if (this.props.branchesIn) {
       for (var index in this.props.branchesIn) {
+        branchesIn.push(<div id={'end-'+this.props.branchesIn[index].branchId}>▶</div>)
+/*
         branchesIn.push(<BranchHandle 
                             branch={this.props.branchesIn[index]} 
                             _updateBranch={this.props._updateBranch} 
                             key={'handle_'+this.props.branchesIn[index].branchId} />)
+*/
       }
     }
 

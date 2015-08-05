@@ -14,6 +14,7 @@ var branchSource = {
 function collect(connect, monitor) {
   return {
     connectDragSource: connect.dragSource(),
+    connectDragPreview: connect.dragPreview(),
     isDragging: monitor.isDragging()
   }
 }
@@ -23,8 +24,14 @@ var BranchOut = React.createClass({
 
   propTypes: {
     connectDragSource: React.PropTypes.func.isRequired,
+    connectDragPreview: React.PropTypes.func.isRequired,
     isDragging: React.PropTypes.bool.isRequired
   },  
+
+  componentDidMount: function () {
+    var connectDragPreview = this.props.connectDragPreview;
+    connectDragPreview(<div>▶</div>);
+  },
 
   render: function () {
     var connectDragSource = this.props.connectDragSource;
@@ -37,7 +44,7 @@ var BranchOut = React.createClass({
         fontWeight: 'bold',
         cursor: 'move'
       }}> 
-        ▶
+        ⬤
       </div>
     );  
   }
