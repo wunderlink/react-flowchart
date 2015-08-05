@@ -53,13 +53,15 @@ var Container = React.createClass({
           var branchId = node.branches[bindex].branchId
           var start = thisEl.querySelector('#handle-'+branchId)
           var finish = thisEl.querySelector('#end-'+branchId)
-          var scoords = start.getBoundingClientRect()
-          var fcoords = finish.getBoundingClientRect()
+          if (finish) {
+            var scoords = start.getBoundingClientRect()
+            var fcoords = finish.getBoundingClientRect()
 
-          context.beginPath();
-          context.moveTo(scoords.left, scoords.top);
-          context.lineTo(fcoords.left, fcoords.top);
-          context.stroke();
+            context.beginPath();
+            context.moveTo(scoords.left, scoords.top);
+            context.lineTo(fcoords.left, fcoords.top);
+            context.stroke();
+          }
         }
       }
     }

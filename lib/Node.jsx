@@ -86,16 +86,16 @@ var Node = React.createClass({
                        key={"b"+i} />) 
     }   
 
+    var branchEnd = {
+      position: 'absolute',
+      left: 0,
+      right: 0
+    }
+
     var branchesIn = []
     if (this.props.branchesIn) {
       for (var index in this.props.branchesIn) {
-        branchesIn.push(<div id={'end-'+this.props.branchesIn[index].branchId}>▶</div>)
-/*
-        branchesIn.push(<BranchHandle 
-                            branch={this.props.branchesIn[index]} 
-                            _updateBranch={this.props._updateBranch} 
-                            key={'handle_'+this.props.branchesIn[index].branchId} />)
-*/
+        branchesIn.push(<div style={branchEnd} id={'end-'+this.props.branchesIn[index].branchId}>▶</div>)
       }
     }
 
