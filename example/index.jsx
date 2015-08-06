@@ -48,9 +48,6 @@ var MyFlowchart = React.createClass({
     return {nodes:data}
   }, 
 
-  componentWillMount : function() {}, 
-  componentWillReceiveProps: function() {}, 
-
   componentDidMount: function () {
       globalEmitter.addListener('updateNode', this._updateNode);
   },
@@ -131,12 +128,9 @@ var MyFlowchart = React.createClass({
 var NodeContents = React.createClass({
 
   propTypes: {
-    branches: React.PropTypes.array
+    NodeBranches: React.PropTypes.array,
+    NodeTarget: React.PropTypes.element
   }, 
-
-  componentWillMount : function() {}, 
-  componentWillReceiveProps: function() {}, 
-  componentWillUnmount : function() {}, 
 
   _addNewBranch : function() {
     var branches = this.props.branches
@@ -158,8 +152,8 @@ var NodeContents = React.createClass({
         {this.props.NodeTarget}
         <div className="branchHolder">
           {this.props.NodeBranches}
+          <div onClick={this._addNewBranch}>+</div>
         </div>
-        <div onClick={this._addNewBranch}>+</div>
       </div>
     return html
   }
@@ -168,11 +162,9 @@ var NodeContents = React.createClass({
 
 var BranchContents = React.createClass({
 
-  propTypes: {}, 
-
-  componentWillMount : function() {}, 
-  componentWillReceiveProps: function() {}, 
-  componentWillUnmount : function() {}, 
+  propTypes: {
+    BranchHandle: React.PropTypes.element,
+  },
 
   render : function() {
       var html =
