@@ -9,11 +9,7 @@ var ItemTypes = require('./constants.json').ItemTypes
 var nodeInTarget = {
   drop: function (props, monitor) {
     var item = monitor.getItem()
-    var branch = {
-      branchId:item.branch.branchId,
-      nodeId:props.node.nodeId
-    }
-    item._updateBranch(branch)
+    item.dropBranch(item.branch, props.node)
   }
 };
 
@@ -37,18 +33,17 @@ var NodeIn = React.createClass({
     var isOver = this.props.isOver;
 
     return connectDropTarget(
-      <div style={{width:'30px',height:'30px', border:'1px solid #00FF00'}}>
+      <div style={{width:'100%',height:'100%'}}>
         {this.props.branchesIn}
         {isOver &&
-          <div style={{
+          <div className="dragHover" style={{
             position: 'relative',
             top: 0,
             left: 0,
             height: '100%',
             width: '100%',
             zIndex: 1,
-            opacity: 0.5,
-            backgroundColor: 'yellow'
+            opacity: 0.5
           }} />
         }
       </div>

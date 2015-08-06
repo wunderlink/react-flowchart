@@ -6,8 +6,7 @@ var ItemTypes = require('./constants.json').ItemTypes
 
 var branchSource = { 
   beginDrag: function (props) {
-  console.log("BPROPS", props)
-    return {branch:props.branch, _updateBranch:props._updateBranch}
+    return {branch:props.branch, dropBranch:props.dropBranch}
   }
 }
 

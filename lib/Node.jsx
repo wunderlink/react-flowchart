@@ -1,9 +1,8 @@
 
-var uuid = require('node-uuid');
 var dnd = require('react-dnd');
 var React = require('react')
 
-var Branch = require('./branch.jsx')
+var BranchEnd = require('./branch-end.jsx')
 var BranchHandle = require('./branch-handle.jsx')
 var NodeTarget = require('./node-target.jsx')
 var ItemTypes = require('./constants.json').ItemTypes
@@ -18,120 +17,50 @@ var Node = React.createClass({
   componentWillReceiveProps: function() {}, 
   componentWillUnmount : function() {}, 
 
-  _getNodeValue : function(key) {
-    var defaults = { 
-      maxBranches: 2
-    }   
-
-    if (this.props.node[key]) {
-      return this.props.node[key]
-    } else if (defaults[key]) {
-      return defaults[key]
-    } else {
-      return false
-    }   
-  },  
-
-  _addNewBranch : function() {
-    var node = this.props.node
-    if (!node.branches) {
-      node.branches = []
-    }   
-    node.branches.push({branchId:uuid.v4()})
-    this.props._updateNode(node)
-    this.update = true
-  },  
-
   render : function() {
     this.update = false
-    var branchComps = []
     var branches = []
+
     if (this.props.node.branches) {
-      branches = this.props.node.branches
-    }   
+      for (var index in this.props.node.branches) {
+        var branch = this.props.node.branches[index]
 
-    for (var i=0; i<branches.length; i++) {
-      if (i >= this._getNodeValue('maxBranches')) {
-        break
+        branch.key = 'k'+branch.branchId
+        branch.BranchHandle = <BranchHandle
+                        branch={branch} 
+                        dropBranch={this.props.dropBranch} />
+
+        branches.push(React.createElement(this.props.BranchContents, branch))
       }
-      var Handle = []
-//      for (var index in this.props.branchHandles) {
-//        if (this.props.branchHandles[index].branchId === branches[i].branchId) {
-          Handle.push(<BranchHandle 
-                          branch={branches[i]} 
-                          _updateBranch={this.props._updateBranch} 
-                          key={'handle_'+branches[i].branchId} />)
-//        }
-//      }
-      var branch = this.props.node.branches[i]
-      branchComps.push(<Branch 
-                      branch={branch} 
-                      index={i} 
-                      BranchContents={this.props.BranchContents}
-                      BranchHandle={Handle}
-                      _addNewBranch={this._addNewBranch}
-                      _updateBranch={this.props._updateBranch}
-                      key={branch.branchId} />) 
-    }   
-    var contents = []
-    if (this.props.NodeContents) {
-      contents.push(<this.props.NodeContents node={this.props.node} />) 
-    }   
-
-    if (branches.length < this._getNodeValue('maxBranches')) {
-      branchComps.push(<Branch
-                       addNew={true}
-                       index={i}
-                       _addNewBranch={this._addNewBranch}
-                       key={"b"+i} />) 
-    }   
-
-    var branchEnd = {
-      position: 'absolute',
-      left: 0,
-      right: 0
     }
 
     var branchesIn = []
     if (this.props.branchesIn) {
       for (var index in this.props.branchesIn) {
-        branchesIn.push(<div style={branchEnd} id={'end-'+this.props.branchesIn[index].branchId}>▶</div>)
+        branchesIn.push(<BranchEnd branchId={this.props.branchesIn[index].branchId} />)
       }
     }
 
+    var connectDragSource = this.props.connectDragSource;
+    var isDragging = this.props.isDragging;
+
+    var node = this.props.node
+    node.NodeTarget = <NodeTarget node={this.props.node} branchesIn={branchesIn} />
+    node.NodeBranches = branches
+
+    var contents = React.createElement(this.props.NodeContents, node)
+
     var containerStyle = {
-      border: '1px solid #000',
-      width: '200px',
       position: 'absolute',
       top: this.props.y,
       left: this.props.x
     }
-    var contentStyle = {
-      padding: '10px',
-      width: '100px'
-    }
-    var branchesStyle = {
-      padding: '4px',
-    }
-    var connectDragSource = this.props.connectDragSource;
-    var isDragging = this.props.isDragging;
 
     var html =
     connectDragSource(
-      <div style={containerStyle}>
-        <div>
-          <NodeTarget node={this.props.node} nodeIndex={this.props.nodeIndex} branchesIn={branchesIn} />
-        </div>
-        <div style={contentStyle}>
-          <h4>{this.props.node.name}</h4>
-          <div>
-          {contents}
-          </div>
-        </div>
-        <div style={branchesStyle}>
-        {branchComps}
-        </div>
-      </div>
+    <div style={containerStyle}>
+      {contents}
+    </div>
     )
     return html
   }
@@ -140,7 +69,7 @@ var Node = React.createClass({
 
 var nodeSource = { 
   beginDrag: function (props) {
-    return {node:props.node, _updateNode:props._updateNode}
+    return {node:props.node, dropNode:props.dropNode}
   }
 }
 

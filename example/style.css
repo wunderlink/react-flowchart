@@ -1,0 +1,17 @@
+
+.container {
+  border: 1px solid #CCC;
+  width: 800px;
+  height: 600px;
+}
+
+.dragHover {
+	background-color: green;
+}
+
+.node {
+	background-color: #E0E0E0;
+  width: 100px;
+  height: 100px;
+}
+
