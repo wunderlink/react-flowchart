@@ -1,5 +1,5 @@
 
-var dnd = require('react-dnd');
+var dnd = require('react-dnd')
 var React = require('react')
 
 var ItemTypes = require('./constants.json').ItemTypes
@@ -22,7 +22,6 @@ function collect(connect, monitor) {
 
 
 var NodeIn = React.createClass({
-
   propTypes: {
     connectDropTarget: React.PropTypes.func.isRequired,
     isOver: React.PropTypes.bool.isRequired

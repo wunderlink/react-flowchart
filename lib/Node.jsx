@@ -10,7 +10,6 @@ var ItemTypes = require('./constants.json').ItemTypes
 
 
 var Node = React.createClass({
-
   propTypes: {}, 
 
   componentWillMount : function() {}, 

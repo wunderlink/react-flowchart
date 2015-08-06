@@ -1,10 +1,9 @@
 
 
-var uuid = require('node-uuid');
-var HTML5Backend = require('react-dnd/modules/backends/HTML5');
+var uuid = require('node-uuid')
+var HTML5Backend = require('react-dnd/modules/backends/HTML5')
 var React = require('react')
-var dnd = require('react-dnd');
-var PureRenderMixin = require('react/addons').addons.PureRenderMixin;
+var dnd = require('react-dnd')
 
 var Node = require('./node.jsx')
 
