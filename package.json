@@ -20,7 +20,8 @@
   },
   "scripts": {
     "test": "node test/index.js",
-    "example": "beefy example/index.jsx"
+    "example": "beefy example/index.jsx",
+    "simplest": "beefy example/simplest.jsx"
   },
   "keywords": [],
   "author": "Tyler Bushnell <wunderlinks@gmail.com>",
