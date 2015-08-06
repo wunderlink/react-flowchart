@@ -2,6 +2,7 @@
 var uuid = require('node-uuid');
 var React = require('react')
 var ReactFlow = require('../index.js')
+var EventEmitter = require('events')
 
 require('./style.css')
 
@@ -35,8 +36,8 @@ var data = [
 
 
 
-var width = 700
-var height = 700
+
+var globalEmitter = new EventEmitter()
 
 
 
@@ -49,10 +50,17 @@ var MyFlowchart = React.createClass({
 
   componentWillMount : function() {}, 
   componentWillReceiveProps: function() {}, 
-  componentWillUnmount : function() {}, 
 
+  componentDidMount: function () {
+      globalEmitter.addListener('updateNode', this._updateNode);
+  },
 
-  _updateNode : function (nodeId, values) {
+  componentWillUnmount: function () {
+      globalEmitter.removeListener('updateNode', this._updateNode);
+  },
+
+  _updateNode : function (values) {
+    var nodeId = values.nodeId
     var nodes = this.state.nodes
     var node = this._findNode(nodeId, nodes)
     for (var key in values) {
@@ -95,10 +103,11 @@ var MyFlowchart = React.createClass({
 
   _dropNode : function (node, coords) {
     var vals = {
+      nodeId: node.nodeId,
       x: coords.x,
       y: coords.y
     }
-    this._updateNode(node.nodeId, vals)
+    this._updateNode(vals)
   },
 
   _dropBranch : function (branch, node) {
@@ -135,8 +144,12 @@ var NodeContents = React.createClass({
       branches = []
     }
     branches.push({branchId:uuid.v4()})
-    this.props._updateNode(node)
-    this.update = true
+
+    var node = {
+      nodeId: this.props.nodeId,
+      branches: branches
+    }
+    globalEmitter.emit('updateNode', node)
   },
 
   render : function() {
