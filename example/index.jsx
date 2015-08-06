@@ -155,10 +155,10 @@ var NodeContents = React.createClass({
   render : function() {
     var html =
       <div className="node">
-        <div style={{border:'1px solid #0000FF', width:'20px', height:'20px'}}>
-          {this.props.NodeTarget}
+        {this.props.NodeTarget}
+        <div className="branchHolder">
+          {this.props.NodeBranches}
         </div>
-        {this.props.NodeBranches}
         <div onClick={this._addNewBranch}>+</div>
       </div>
     return html
@@ -175,12 +175,8 @@ var BranchContents = React.createClass({
   componentWillUnmount : function() {}, 
 
   render : function() {
-      var style = { 
-        border: '1px solid #F00'
-      }   
-
       var html =
-      <div style={style}>
+      <div className='branchHandle'>
         {this.props.BranchHandle}
       </div>
     return html

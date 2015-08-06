@@ -5,6 +5,14 @@
   height: 600px;
 }
 
+.containerCanvas {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 999;
+  pointer-events: none;
+}
+
 .dragHover {
 	background-color: green;
 }
@@ -15,3 +23,18 @@
   height: 100px;
 }
 
+.nodeTarget {
+  border: 1px solid #CCC;
+  width: 20px;
+  height: 20px;
+}
+
+.branchHandle {
+  border: 1px solid #CCC;
+}
+
+.branchHolder {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

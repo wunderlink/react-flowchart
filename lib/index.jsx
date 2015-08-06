@@ -148,7 +148,7 @@ var Container = React.createClass({
           }} />
         }   
 
-        <canvas ref="containerCanvas"></canvas>
+        <canvas className="containerCanvas" ref="containerCanvas" Background="Transparent" IsHitTestVisible="false"></canvas>
         </div>
       </div>
     )
