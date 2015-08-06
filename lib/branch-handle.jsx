@@ -24,6 +24,7 @@ var BranchOut = React.createClass({
   propTypes: {
     connectDragSource: React.PropTypes.func.isRequired,
     connectDragPreview: React.PropTypes.func.isRequired,
+    BranchHandleContents: React.PropTypes.node,
     isDragging: React.PropTypes.bool.isRequired
   },  
 
@@ -36,14 +37,17 @@ var BranchOut = React.createClass({
     var connectDragSource = this.props.connectDragSource;
     var isDragging = this.props.isDragging;
 
+    var contents = '⬤'
+    if (this.props.BranchEndContents) {
+      contents = this.props.BranchEndContents
+    }
+
     return connectDragSource(
-      <div id={'handle-'+this.props.branch.branchId} style={{
+      <div className='rf-branchHandle' id={'handle-'+this.props.branch.branchId} style={{
         opacity: isDragging ? 0.5 : 1,
-        fontSize: 25, 
-        fontWeight: 'bold',
         cursor: 'move'
       }}> 
-        ⬤
+        {contents}
       </div>
     );  
   }

@@ -12,10 +12,6 @@ var ItemTypes = require('./constants.json').ItemTypes
 var Node = React.createClass({
   propTypes: {}, 
 
-  componentWillMount : function() {}, 
-  componentWillReceiveProps: function() {}, 
-  componentWillUnmount : function() {}, 
-
   render : function() {
     this.update = false
     var branches = []
@@ -26,6 +22,7 @@ var Node = React.createClass({
 
         branch.key = 'k'+branch.branchId
         branch.BranchHandle = <BranchHandle
+                        BranchHandleContents={this.props.BranchHandleContents} 
                         branch={branch} 
                         dropBranch={this.props.dropBranch} />
 
@@ -36,7 +33,9 @@ var Node = React.createClass({
     var branchesIn = []
     if (this.props.branchesIn) {
       for (var index in this.props.branchesIn) {
-        branchesIn.push(<BranchEnd branchId={this.props.branchesIn[index].branchId} />)
+        branchesIn.push(<BranchEnd 
+                          BranchEndContents={this.props.BranchEndContents}
+                          branchId={this.props.branchesIn[index].branchId} />)
       }
     }
 

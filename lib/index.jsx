@@ -16,6 +16,9 @@ var Container = React.createClass({
     nodes: React.PropTypes.array.isRequired,
     BranchContents: React.PropTypes.element.isRequired,
     NodeContents: React.PropTypes.element.isRequired,
+    BranchHandle: React.PropTypes.node,
+    BranchEnd: React.PropTypes.node,
+    NodeContents: React.PropTypes.element.isRequired,
     dropBranch: React.PropTypes.func.isRequired,
     dropNode: React.PropTypes.func.isRequired
   },
@@ -116,6 +119,8 @@ var Container = React.createClass({
                   branchesIn={branchesIn} 
                   BranchContents={this.props.BranchContents}
                   NodeContents={this.props.NodeContents}
+                  BranchHandleContents={this.props.BranchHandleContents}
+                  BranchEndContents={this.props.BranchEndContents}
                   dropBranch={this.props.dropBranch}
                   dropNode={this.props.dropNode}
                   x={x}

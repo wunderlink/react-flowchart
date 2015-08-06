@@ -5,6 +5,7 @@ var React = require('react')
 var BranchEnd = module.exports = React.createClass({
 
   propTypes: {
+    BranchEndContents: React.PropTypes.node,
     branchId: React.PropTypes.string
   },
       
@@ -15,9 +16,14 @@ var BranchEnd = module.exports = React.createClass({
       right: 0
     }   
 
+    var contents = '▶'
+    if (this.props.BranchEndContents) {
+      contents = this.props.BranchEndContents
+    }
+
     var html =
-      <div id={'end-'+this.props.branchId} style={style}>
-      ▶
+      <div className='rf-branchEnd' id={'end-'+this.props.branchId} style={style}>
+      {contents}
       </div>
     return html
   }
