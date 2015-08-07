@@ -29,13 +29,12 @@
   "dependencies": {
     "cssify": "^0.6.0",
     "envify": "^3.2.0",
-    "node-uuid": "^1.4.3",
     "react": "^0.13.3",
     "react-dnd": "^1.1.4",
-    "material-ui": "^0.10.2",
     "reactify": "^1.0.0"
   },
   "devDependencies": {
+    "node-uuid": "^1.4.3",
     "beefy": "^2.1.5",
     "browserify": "^11.0.1",
     "react-tap-event-plugin": "^0.1.7",
