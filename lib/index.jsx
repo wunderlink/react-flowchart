@@ -142,11 +142,11 @@ var Container = React.createClass({
     var isOver = this.props.isOver;
 
     var canvStyle = {
-      position: absolute;
-      top: 0px;
-      left: 0px;
-      z-index: 9999;
-      pointer-events: none;
+      position: 'absolute',
+      top: '0px',
+      left: '0px',
+      zIndex: 9999,
+      pointerEvents: 'none'
     }
 
     var html =
