@@ -142,6 +142,14 @@ var Container = React.createClass({
     var connectDropTarget = this.props.connectDropTarget;
     var isOver = this.props.isOver;
 
+    var canvStyle = {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      z-index: 9999;
+      pointer-events: none;
+    }
+
     var html =
     connectDropTarget(
       <div style={{width:'100%', height:'100%'}}>
@@ -159,7 +167,7 @@ var Container = React.createClass({
           }} />
         }   
 
-        <canvas className="containerCanvas" ref="containerCanvas" Background="Transparent" IsHitTestVisible="false"></canvas>
+        <canvas className="containerCanvas" ref="containerCanvas" style={canvStyle}></canvas>
         </div>
       </div>
     )
