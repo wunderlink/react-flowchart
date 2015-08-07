@@ -1,4 +1,8 @@
 
+body {
+  margin: 150px 0px 0px 150px;
+}
+
 .container {
   border: 1px solid #CCC;
   width: 800px;

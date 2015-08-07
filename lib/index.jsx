@@ -61,10 +61,11 @@ var Container = React.createClass({
           if (finish) {
             var scoords = start.getBoundingClientRect()
             var fcoords = finish.getBoundingClientRect()
+            var ccoords = thisEl.getBoundingClientRect()
 
             context.beginPath();
-            context.moveTo(scoords.left, scoords.top);
-            context.lineTo(fcoords.left, fcoords.top);
+            context.moveTo(scoords.left - ccoords.left, scoords.top - ccoords.top);
+            context.lineTo(fcoords.left - ccoords.left, fcoords.top - ccoords.top);
             context.stroke();
           }
         }
@@ -101,6 +102,16 @@ var Container = React.createClass({
     return false
   },
 
+  _dropNode : function (node, coords) {
+    var thisEl = React.findDOMNode(this)
+    var offset = thisEl.getBoundingClientRect()
+    var offsetCoords = {
+      x: coords.x - offset.left,
+      y: coords.y - offset.top
+    }
+    this.props.dropNode(node, offsetCoords)
+  },
+
   render : function() {
     var nodes = []
     var nodeIn = this._collectNodeIn()
@@ -122,7 +133,7 @@ var Container = React.createClass({
                   BranchHandleContents={this.props.BranchHandleContents}
                   BranchEndContents={this.props.BranchEndContents}
                   dropBranch={this.props.dropBranch}
-                  dropNode={this.props.dropNode}
+                  dropNode={this._dropNode}
                   x={x}
                   y={y}
                   key={"n"+index} />)
