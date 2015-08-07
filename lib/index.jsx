@@ -62,9 +62,14 @@ var Container = React.createClass({
             var fcoords = finish.getBoundingClientRect()
             var ccoords = thisEl.getBoundingClientRect()
 
+            var smidx = scoords.left + (scoords.width / 2)
+            var smidy = scoords.top + (scoords.height / 2)
+            var fmidx = fcoords.left
+            var fmidy = fcoords.top + (fcoords.height / 2)
+
             context.beginPath();
-            context.moveTo(scoords.left - ccoords.left, scoords.top - ccoords.top);
-            context.lineTo(fcoords.left - ccoords.left, fcoords.top - ccoords.top);
+            context.moveTo(smidx - ccoords.left, smidy - ccoords.top);
+            context.lineTo(fmidx - ccoords.left, fmidy - ccoords.top);
             context.stroke();
           }
         }
