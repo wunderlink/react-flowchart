@@ -17,7 +17,11 @@ body {
   pointer-events: none;
 }
 
-.dragHover {
+.containerDragHover {
+	background-color: green;
+}
+
+.nodeDragHover {
 	background-color: green;
 }
 

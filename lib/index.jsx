@@ -160,7 +160,7 @@ var Container = React.createClass({
         <div ref="container" style={{position:'relative', width:'100%', height:'100%'}}>
         {nodes}
         {isOver &&
-          <div className="dragHover" style={{
+          <div className="containerDragHover" style={{
             position: 'absolute',
             top: 0,
             left: 0,

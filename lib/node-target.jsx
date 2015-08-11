@@ -35,7 +35,7 @@ var NodeIn = React.createClass({
       <div style={{width:'100%',height:'100%'}}>
         {this.props.branchesIn}
         {isOver &&
-          <div className="dragHover" style={{
+          <div className="nodeDragHover" style={{
             position: 'relative',
             top: 0,
             left: 0,
