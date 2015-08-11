@@ -10,19 +10,13 @@ var BranchEnd = module.exports = React.createClass({
   },
       
   render : function() {
-    var style = { 
-      position: 'absolute',
-      left: 0,
-      right: 0
-    }   
-
     var contents = '▶'
     if (this.props.BranchEndContents) {
       contents = this.props.BranchEndContents
     }
 
     var html =
-      <div className='rf-branchEnd' id={'end-'+this.props.branchId} style={style}>
+      <div className='rf-branchEnd' id={'end-'+this.props.branchId}>
       {contents}
       </div>
     return html
