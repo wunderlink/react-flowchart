@@ -1,6 +1,6 @@
 {
   "name": "react-flowchart",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "An interactive flowchart using React",
   "main": "index.js",
   "repository": {
