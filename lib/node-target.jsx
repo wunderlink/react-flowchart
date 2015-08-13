@@ -32,18 +32,11 @@ var NodeIn = React.createClass({
     var isOver = this.props.isOver;
 
     return connectDropTarget(
-      <div style={{width:'100%',height:'100%'}}>
+      <div className="rf-dropTarget">
         {this.props.branchesIn}
         {isOver &&
-          <div className="nodeDragHover" style={{
-            position: 'relative',
-            top: 0,
-            left: 0,
-            height: '100%',
-            width: '100%',
-            zIndex: 1,
-            opacity: 0.5
-          }} />
+          <div className="rf-nodeDragHover" />
+          }
         }
       </div>
     );
