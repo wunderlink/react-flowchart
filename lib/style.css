@@ -1,8 +1,24 @@
 
-.containerCanvas {
+.rf-containerCanvas {
       position: absolute;
       top: 0px;
       left: 0px;
-      zIndex: 99;
-      pointerEvents: none;
+      z-index: 99;
+      pointer-events: none;
+}
+
+.rf-containerDragHover {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  opacity: 0.5;
+}
+
+.rf-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }

@@ -151,21 +151,13 @@ var Container = React.createClass({
     var html =
     connectDropTarget(
       <div style={{width:'100%', height:'100%'}}>
-        <div ref="container" style={{position:'relative', width:'100%', height:'100%'}}>
+        <div ref="container" className="rf-container">
         {nodes}
         {isOver &&
-          <div className="containerDragHover" style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            height: '100%',
-            width: '100%',
-            zIndex: 1,
-            opacity: 0.5,
-          }} />
+          <div className="rf-containerDragHover" />
         }   
 
-        <canvas className="containerCanvas" ref="containerCanvas"></canvas>
+        <canvas className="rf-containerCanvas" ref="containerCanvas"></canvas>
         </div>
       </div>
     )
