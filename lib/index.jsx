@@ -4,6 +4,8 @@ var HTML5Backend = require('react-dnd/modules/backends/HTML5')
 var React = require('react')
 var dnd = require('react-dnd')
 
+require('./style.css')
+
 var Node = require('./node.jsx')
 
 var ItemTypes = require('./constants.json').ItemTypes
@@ -146,14 +148,6 @@ var Container = React.createClass({
     var connectDropTarget = this.props.connectDropTarget;
     var isOver = this.props.isOver;
 
-    var canvStyle = {
-      position: 'absolute',
-      top: '0px',
-      left: '0px',
-      zIndex: 9999,
-      pointerEvents: 'none'
-    }
-
     var html =
     connectDropTarget(
       <div style={{width:'100%', height:'100%'}}>
@@ -171,7 +165,7 @@ var Container = React.createClass({
           }} />
         }   
 
-        <canvas className="containerCanvas" ref="containerCanvas" style={canvStyle}></canvas>
+        <canvas className="containerCanvas" ref="containerCanvas"></canvas>
         </div>
       </div>
     )

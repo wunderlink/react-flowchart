@@ -1,0 +1,8 @@
+
+.containerCanvas {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      zIndex: 99;
+      pointerEvents: none;
+}
