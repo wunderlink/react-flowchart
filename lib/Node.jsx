@@ -18,7 +18,10 @@ var Node = React.createClass({
 
     if (this.props.node.branches) {
       for (var index in this.props.node.branches) {
-        var branch = this.props.node.branches[index]
+        var branch = {}
+        for (var key in this.props.node.branches[index]) {
+          branch[key] = this.props.node.branches[index][key]
+        }
 
         branch.key = 'k'+branch.branchId
         branch.BranchHandle = <BranchHandle
@@ -42,7 +45,10 @@ var Node = React.createClass({
     var connectDragSource = this.props.connectDragSource;
     var isDragging = this.props.isDragging;
 
-    var node = this.props.node
+    var node = {}
+    for (var index in this.props.node) {
+      node[index] = this.props.node[index]
+    }
     node.NodeTarget = <NodeTarget node={this.props.node} branchesIn={branchesIn} />
     node.NodeBranches = branches
 
