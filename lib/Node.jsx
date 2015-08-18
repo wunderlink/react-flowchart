@@ -51,6 +51,7 @@ var Node = React.createClass({
     }
     node.NodeTarget = <NodeTarget node={this.props.node} branchesIn={branchesIn} />
     node.NodeBranches = branches
+    node.opts = this.props.opts
 
     var contents = React.createElement(this.props.NodeContents, node)
 

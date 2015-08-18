@@ -21,7 +21,8 @@ var Container = React.createClass({
     BranchEnd: React.PropTypes.node,
     NodeContents: React.PropTypes.element.isRequired,
     dropBranch: React.PropTypes.func.isRequired,
-    dropNode: React.PropTypes.func.isRequired
+    dropNode: React.PropTypes.func.isRequired,
+    opts: React.PropTypes.object
   },
 
   componentWillUpdate : function() {
@@ -140,6 +141,7 @@ var Container = React.createClass({
                   BranchEndContents={this.props.BranchEndContents}
                   dropBranch={this.props.dropBranch}
                   dropNode={this._dropNode}
+                  opts={this.props.opts}
                   x={x}
                   y={y}
                   key={"n"+index} />)

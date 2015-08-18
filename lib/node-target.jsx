@@ -36,7 +36,6 @@ var NodeIn = React.createClass({
         {this.props.branchesIn}
         {isOver &&
           <div className="rf-nodeDragHover" />
-          }
         }
       </div>
     );
