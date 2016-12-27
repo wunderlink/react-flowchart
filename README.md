@@ -13,6 +13,12 @@ Parameters:
 
 ## Example ##
 
+Please see example/index.jsx for implementation details.
+
+```
+npm run example
+```
+
 ![Demo](http://i.imgur.com/UNh1eEP.gif)
 
 While this example works, it doesn't really do anything because there is no change to the data between renders. Look at example/index.jsx to see a bit more of a real world implementation.
