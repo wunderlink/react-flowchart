@@ -13,7 +13,7 @@ Parameters:
 
 ## Example ##
 
-Please see example/index.jsx for implementation details.
+Please see example/index.jsx for implementation details. In order to experiment with the example yourself, download and run this command:
 
 ```
 npm run example
