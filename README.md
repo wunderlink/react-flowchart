@@ -13,6 +13,8 @@ Parameters:
 
 ## Example ##
 
+![Demo](http://imgur.com/gallery/GKCxg)
+
 While this example works, it doesn't really do anything because there is no change to the data between renders. Look at example/index.jsx to see a bit more of a real world implementation.
 
 ```js
